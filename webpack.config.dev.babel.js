@@ -13,10 +13,10 @@ const css_build = new extractTextWebpackPlugin('[name]-[hash:8].css')
 const config = webpack({
     entry: {
         page1: ['./src/index.jsx'],
-        // common: [
-        //     'react',
-        //     'react-dom'
-        // ]
+        common: [
+            'react',
+            'react-dom'
+        ]
     },
     output: {
         filename: '[name]-[chunkhash:8].js',
