@@ -1,4 +1,4 @@
- 
+
 import webpack from 'webpack';
 import htmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
@@ -7,8 +7,8 @@ const dir_build = path.resolve(__dirname, 'dist')
 
 const config = webpack({
     entry: {
-        page1: './src/index.jsx',
-        common:[
+        page1: ['webpack-dev-server/client?http://localhost:8080/', './src/index.jsx'],
+        common: [
             'react',
             'react-dom'
         ]
@@ -27,15 +27,41 @@ const config = webpack({
         rules: [
             {
                 test: /\.jsx$/,
+                use: [
+                    { loader: 'jsx-loader' },
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['es2015', 'stage-1', 'react']
+                        }
+                    }],
+                exclude: /^node_modules$/
+            },
+            {
+                test: /\.js$/,
                 use: [{
-                    loader: 'jsx-loader'
-                },
-                {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['es2015','stage-1','react']
+                        presets: ['es2015', 'stage-1', 'react']
                     }
-                }],
+                }
+                ],
+                exclude: /^node_modules$/
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    { loader: 'style-loader' },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: '1'
+                        }
+                    },
+                    { loader: 'postcss-loader' },
+                    { loader: 'less-loader' }
+                ],
+                exclude: /^node_modules$/
             }
         ]
     },
@@ -54,12 +80,19 @@ const config = webpack({
         }),
         new htmlWebpackPlugin({
             template: 'index.html',
-            filename: 'index-[hash:8].html',
-            title: 'ReactRouter---TEST',
+            title: 'something',
             inject: 'body',
-            hash: true
+            hash: true, 
         }),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    require('autoprefixer')({
+                        browsers: ['last 5 version']
+                    })
+                ],
+            }
+        }),
     ]
 })
 
