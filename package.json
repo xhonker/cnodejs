@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --open --progress --colors --hot --inline",
-    "build": "webpack --config webpack.config.dev.babel.js --progress --color --display-error-details --display-reasons -p"
+    "dist": "webpack --config webpack.config.dev.babel.js --progress --color --display-error-details --display-reasons -p"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
