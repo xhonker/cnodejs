@@ -2,3 +2,5 @@
 /dist/
 /typings/
 *.lock
+*.pub
+y
