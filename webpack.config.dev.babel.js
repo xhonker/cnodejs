@@ -20,7 +20,8 @@ const config = webpack({
     },
     output: {
         filename: '[name]-[chunkhash:8].js',
-        path: dir_build
+        path: dir_build,
+        chunkFilename: '[name]-[chunkhash:8]-chunk.js'
     },
     resolve: {
         extensions: ['*', '.jsx', '.less', '.js', '.tsx']
@@ -57,7 +58,7 @@ const config = webpack({
                 test: /\.less$/,
                 use: less_build.extract({
                     fallback: 'style-loader',
-                    use:[
+                    use: [
                         { loader: 'css-loader', options: { importLoaders: 1 } },
                         'postcss-loader',
                         'less-loader'
