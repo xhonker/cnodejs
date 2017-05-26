@@ -12,10 +12,15 @@ const css_build = new extractTextWebpackPlugin('[name]-[hash:8].css')
 
 const config = webpack({
     entry: {
-        page1: ['./src/index.jsx'],
+        page1: './src/index.jsx',
         common: [
             'react',
-            'react-dom'
+            'react-dom',
+            'react-router',
+            'redux',
+            'redux-thunk',
+            'antd-mobile'
+
         ]
     },
     output: {
@@ -24,7 +29,7 @@ const config = webpack({
         chunkFilename: '[name]-[chunkhash:8]-chunk.js'
     },
     resolve: {
-        extensions: ['*', '.jsx', '.less', '.js', '.tsx']
+        extensions: ['*', '.web.js', '.jsx', '.less', '.js', '.tsx', '.json']
     },
     node: {
         Buffer: false
@@ -43,17 +48,7 @@ const config = webpack({
                     }
                 }],
                 exclude: /^node_modules$/
-            }, {
-                test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2015', 'stage-1', 'react']
-                    }
-                }
-                ],
-                exclude: /^node_modules$/
-            },
+            }, 
             {
                 test: /\.less$/,
                 use: less_build.extract({
@@ -65,6 +60,28 @@ const config = webpack({
                     ]
                 }),
                 exclude: /^node_modules$/
+            },
+            {
+                test: /\.css$/,
+                exclude: /^node_modules$/,
+                use: [
+                    { loader: 'style-loader' },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: '1'
+                        }
+                    },
+                    { loader: 'postcss-loader' }
+                ]
+            },
+            {
+                test: /\.(svg)$/i,
+                use: [
+                    { loader: 'svg-sprite-loader' },
+
+                ],
+                include: require.resolve('antd-mobile').replace(/warn\.js$/, '')
             }
         ]
     },
@@ -72,7 +89,7 @@ const config = webpack({
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['common'],
+            names: ['common', 'manifest',],
             filename: '[name]-[hash:8].build.js',
             minChunks: Infinity,
         }),
@@ -104,7 +121,8 @@ const config = webpack({
             sourceMap: false,
             warnings: false,
             compress: {
-                warnings: false
+                warnings: false,
+                drop_console: true
             },
             output: {
                 comments: false,

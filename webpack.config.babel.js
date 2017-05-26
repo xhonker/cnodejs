@@ -8,18 +8,15 @@ const dir_build = path.resolve(__dirname, 'dist')
 const config = webpack({
     entry: {
         page1: ['webpack-dev-server/client?http://localhost:8080/', './src/index.jsx'],
-        common: [
-            'react',
-            'react-dom'
-        ]
     },
     output: {
-        filename: '[name]-[chunkhash:8].js',
+        filename: '[name]-[hash:8].js',
         path: dir_build,
-        chunkFilename:'[name]-[chunkhash:8]-chunk.js'
+        chunkFilename: '[name]-[chunkhash:8]-chunk.js'
     },
     resolve: {
-        extensions: ['*', '.jsx', '.less', '.js', '.tsx']
+        extensions: ['*', '.web.js', '.jsx', '.less', '.js', '.tsx']
+
     },
     node: {
         Buffer: false
@@ -28,6 +25,7 @@ const config = webpack({
         rules: [
             {
                 test: /\.jsx$/,
+                exclude: /^node_modules$/,
                 use: [
                     { loader: 'jsx-loader' },
                     {
@@ -35,22 +33,11 @@ const config = webpack({
                         options: {
                             presets: ['es2015', 'stage-1', 'react']
                         }
-                    }],
-                exclude: /^node_modules$/
-            },
-            {
-                test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2015', 'stage-1', 'react']
-                    }
-                }
-                ],
-                exclude: /^node_modules$/
+                    }]
             },
             {
                 test: /\.less$/,
+                exclude: /^node_modules$/,
                 use: [
                     { loader: 'style-loader' },
                     {
@@ -61,19 +48,33 @@ const config = webpack({
                     },
                     { loader: 'postcss-loader' },
                     { loader: 'less-loader' }
-                ],
-                exclude: /^node_modules$/
+                ]
+            },
+            {
+                test: /\.css$/,
+                exclude: /^node_modules$/,
+                use: [
+                    { loader: 'style-loader' },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: '1'
+                        }
+                    },
+                    { loader: 'postcss-loader' }
+                ]
+            },
+            {
+                test: /\.(svg)$/i,
+                include: [require.resolve('antd-mobile').replace(/warn\.js$/, '')],
+                use: [
+                    { loader: 'svg-sprite-loader' }
+                ]
             }
         ]
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['common'],
-            filename: '[name].build.js',
-            minChunks: Infinity,
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
@@ -83,7 +84,7 @@ const config = webpack({
             template: 'index.html',
             title: 'something',
             inject: 'body',
-            hash: true, 
+            hash: true,
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
