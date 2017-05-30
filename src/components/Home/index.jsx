@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { NavBar, Table, Tabs, List } from 'antd-mobile';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 const TabPane = Tabs.TabPane;
 const ListItem = List.Item;
@@ -35,87 +36,23 @@ class Main extends Component {
             case 'all':
                 return (
                     <div>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
+                        <ListItem>
 
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
+                        </ListItem>
 
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
-                        <ListItem >
-                            sdfsf
-                    </ListItem>
                     </div>
-
-
                 )
             case 'good':
                 return (
-
-                    <ListItem >
-                        this is good
-                    </ListItem>
+                    <div>
+                    </div>
                 )
-
             default:
                 break;
         }
     }
-
     render() {
-        console.log(this.props.onScroll);
+        const { onScrolls } = this.props;
         return (
             <div>
                 <NavBar iconName='ellipsis'>首页</NavBar>
@@ -125,11 +62,15 @@ class Main extends Component {
                             return (
                                 <TabPane key={index.key} tab={index.name}>
                                     <div
-                                        ref='domList'
-                                        onScroll={()=>this.props.onScroll(ReactDOM.findDOMNode(this.refs.domList))}
-                                        style={{ height: '10000px' }}
-                                    > 
-
+                                        style={{ height: document.documentElement.clientHeight - 276, overflow: 'auto' }}
+                                        onScroll={
+                                            () => onScrolls(ReactDOM.findDOMNode(this.refs.listDiv), ReactDOM.findDOMNode(this.refs.listItem))
+                                        }
+                                        ref="listDiv"
+                                    >
+                                        <List ref='listItem'>
+                                            {this.selectTab(index.tab)}
+                                        </List>
                                     </div>
                                 </TabPane>
                             )

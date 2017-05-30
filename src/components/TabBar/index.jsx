@@ -7,16 +7,22 @@ import Main from '../Home/index';
 
 
 class Menu extends Component {
+    componentDidMount = () => {
+        console.log('requst');
+    }
     state = {
         selectedTab: 'main'
     }
-    onScroll = t => {
-        console.log(t)
+    onScrolls = (div, list) => {
+        console.log(`${div.scrollTop}----${div.offsetHeight}----${list.offsetHeight}`);
+        if (div.scrollTop + div.offsetHeight > list.offsetHeight) {
+            console.log('该刷新了');
+        }
     }
     switchTab = tab => {
         switch (tab) {
             case 'main':
-                return (<Main onScroll={this.onScroll} />)
+                return (<Main onScrolls={this.onScrolls} />)
                 break;
 
             default:
