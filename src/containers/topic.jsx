@@ -7,7 +7,7 @@ import Home from '../components/Home/index';
 
 const mapStateToPorps = state => {
     return {
-        item: state.main.item
+        item: state.main
     }
 };
 const mapDispatchToPorps = dispath => {

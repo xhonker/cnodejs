@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import Main from '../components/TabBar/index';
 
 const mapStateToPorps = state => {  
+    console.log(state);
     return {
-        item: state.main.item
+        item: state.main
     }
 }; 
 

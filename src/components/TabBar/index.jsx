@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './style/index';
 const TabBarItem = TabBar.Item;
 import Main from '../Home/index';
+import { SyncAction } from '../../actions/index';
 
 
 class Menu extends Component {
@@ -11,9 +12,13 @@ class Menu extends Component {
         selectedTab: 'main'
     }
     onScrolls = (div, list) => {
-        console.log(`${div.scrollTop}----${div.offsetHeight}----${list.offsetHeight}`);
+        // console.log(`${div.scrollTop}----${div.offsetHeight}----${list.offsetHeight}`);
+        const { dispatch, item } = this.props;
         if (div.scrollTop + div.offsetHeight > list.offsetHeight) {
-            console.log('该刷新了');
+            if (!item.item.isFetching) {
+                let num = item.limit + 10;
+                dispatch(SyncAction(item.tab, num))
+            }
         }
     }
     switchTab = tab => {
@@ -21,7 +26,7 @@ class Menu extends Component {
         console.log(this.props);
         switch (tab) {
             case 'main':
-                return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item} />)
+                return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item.item} />)
                 break;
             default:
                 break;
@@ -30,8 +35,8 @@ class Menu extends Component {
     render() {
         return (
             <div>
-                <TabBar  
-                barTintColor='white'
+                <TabBar
+                    barTintColor='white'
                 >
                     <TabBarItem
                         title='首页'

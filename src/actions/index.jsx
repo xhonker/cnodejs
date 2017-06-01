@@ -4,19 +4,21 @@ const test = () => ({
     type: 'test',
 
 })
-const testSyncAction = (data) => ({
+const testSyncAction = (data, tab, limit) => ({
     type: 'testSyncAciton',
-    data
+    data,
+    tab,
+    limit
 })
 const AjaxTopicRequest = ({
     type: 'AjaxTopicRequest'
 })
-const SyncAction = (tab, page = 1, limit = 20) => {
+const SyncAction = (tab, limit = 10) => {
     return dispath => {
         dispath(AjaxTopicRequest)
-        axios.get(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=${page}&limit=${limit}`)
+        axios.get(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=1&limit=${limit}`)
             .then(req => {
-                dispath(testSyncAction(req.data.data))
+                dispath(testSyncAction(req.data.data, tab, limit))
             })
             .catch(error => {
                 console.log(error);
@@ -46,4 +48,4 @@ const request_details = id => {
 }
 
 
-export { test, SyncAction ,request_details};
+export { test, SyncAction, request_details };

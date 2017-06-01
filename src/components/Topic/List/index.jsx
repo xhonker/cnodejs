@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { List } from 'antd-mobile';
+import { List, Icon } from 'antd-mobile';
 import PropTypes from 'prop-types';
 
 const ListItem = List.Item;
@@ -30,6 +30,7 @@ class TopicList extends Component {
                             )
                         })
                     }
+                    <div style={{ textAlign: 'center' }}><Icon type='loading' /></div>
                 </List>
             </div>
         );

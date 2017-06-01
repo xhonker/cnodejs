@@ -32,7 +32,7 @@ const tabs = [
 ]
 
 class Main extends Component {
-    componentDidMount() { 
+    componentDidMount() {
         const { dispatch } = this.props;
         dispatch(SyncAction('all'))
     }
@@ -40,7 +40,7 @@ class Main extends Component {
         const { dispatch } = this.props;
         switch (tab) {
             case '1':
-                dispatch(SyncAction('all'))
+                dispatch(SyncAction('all')) 
                 break;
             case '2':
                 dispatch(SyncAction('good'))
@@ -61,7 +61,7 @@ class Main extends Component {
     render() {
         const { onScrolls, item } = this.props;
         return (
-            <div style={{ height: document.documentElement.clientHeight - 99 }}>
+            <div>
                 <NavBar iconName='ellipsis'>首页</NavBar>
                 <Tabs defaultActiveKey='1' animated={false} onTabClick={this.onTabClick}>
                     {
@@ -75,7 +75,7 @@ class Main extends Component {
                     }
                 </Tabs>
             </div>
-        );
+        ); ``
     }
 }
 
