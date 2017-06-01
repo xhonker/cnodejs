@@ -7,9 +7,6 @@ import Main from '../Home/index';
 
 
 class Menu extends Component {
-    componentDidMount = () => {
-        console.log('requst');
-    }
     state = {
         selectedTab: 'main'
     }
@@ -20,11 +17,12 @@ class Menu extends Component {
         }
     }
     switchTab = tab => {
+        const { dispatch, item } = this.props;
+        console.log(this.props);
         switch (tab) {
             case 'main':
-                return (<Main onScrolls={this.onScrolls} />)
+                return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item} />)
                 break;
-
             default:
                 break;
         }
@@ -32,7 +30,9 @@ class Menu extends Component {
     render() {
         return (
             <div>
-                <TabBar >
+                <TabBar  
+                barTintColor='white'
+                >
                     <TabBarItem
                         title='首页'
                         key='首页'

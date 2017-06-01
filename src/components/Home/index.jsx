@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { NavBar, Table, Tabs, List } from 'antd-mobile';
+import { NavBar, Table, Tabs, ActivityIndicator } from 'antd-mobile';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 const TabPane = Tabs.TabPane;
-const ListItem = List.Item;
-const ItemBrief = ListItem.Brief;
+import './index.less';
+import TopicList from '../Topic/List/index';
+import { SyncAction } from '../../actions/index';
 const tabs = [
     {
         tab: 'all',
@@ -31,47 +32,43 @@ const tabs = [
 ]
 
 class Main extends Component {
-    selectTab = tab => {
+    componentDidMount() { 
+        const { dispatch } = this.props;
+        dispatch(SyncAction('all'))
+    }
+    onTabClick = (tab) => {
+        const { dispatch } = this.props;
         switch (tab) {
-            case 'all':
-                return (
-                    <div>
-                        <ListItem>
-
-                        </ListItem>
-
-                    </div>
-                )
-            case 'good':
-                return (
-                    <div>
-                    </div>
-                )
+            case '1':
+                dispatch(SyncAction('all'))
+                break;
+            case '2':
+                dispatch(SyncAction('good'))
+                break;
+            case '3':
+                dispatch(SyncAction('share'))
+                break;
+            case '4':
+                dispatch(SyncAction('ask'))
+                break;
+            case '5':
+                dispatch(SyncAction('job'))
+                break;
             default:
                 break;
         }
     }
     render() {
-        const { onScrolls } = this.props;
+        const { onScrolls, item } = this.props;
         return (
-            <div>
+            <div style={{ height: document.documentElement.clientHeight - 99 }}>
                 <NavBar iconName='ellipsis'>首页</NavBar>
-                <Tabs defaultActiveKey='1' swipeable={false}>
+                <Tabs defaultActiveKey='1' animated={false} onTabClick={this.onTabClick}>
                     {
                         tabs.map((index) => {
                             return (
                                 <TabPane key={index.key} tab={index.name}>
-                                    <div
-                                        style={{ height: document.documentElement.clientHeight - 276, overflow: 'auto' }}
-                                        onScroll={
-                                            () => onScrolls(ReactDOM.findDOMNode(this.refs.listDiv), ReactDOM.findDOMNode(this.refs.listItem))
-                                        }
-                                        ref="listDiv"
-                                    >
-                                        <List ref='listItem'>
-                                            {this.selectTab(index.tab)}
-                                        </List>
-                                    </div>
+                                    {(item.length != 0) ? <TopicList onScroll={onScrolls} state={item} onScrolls={onScrolls} /> : <ActivityIndicator toast text='加载中...' size="large" />}
                                 </TabPane>
                             )
                         })

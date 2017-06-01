@@ -19,7 +19,9 @@ const config = webpack({
             'react-router',
             'redux',
             'redux-thunk',
-            'antd-mobile'
+            'antd-mobile',
+            'axios',
+            'immutable'
 
         ]
     },
@@ -48,7 +50,7 @@ const config = webpack({
                     }
                 }],
                 exclude: /^node_modules$/
-            }, 
+            },
             {
                 test: /\.less$/,
                 use: less_build.extract({

@@ -6,29 +6,31 @@ import PropTypes from 'prop-types';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
+import './style/index.less';
 class TopicList extends Component {
     render() {
-        const { onScroll } = this.props;
+        const { onScrolls, state } = this.props;
         return (
             <div
-                ref='container'
                 style={{ height: document.documentElement.clientHeight - 276, overflow: 'auto' }}
-                onScroll={() => onScroll(ReactDOM.findDOMNode(this.refs.container), ReactDOM.findDOMNode(this.refs.list))}
+                onScroll={
+                    () => onScrolls(ReactDOM.findDOMNode(this.refs.listDiv), ReactDOM.findDOMNode(this.refs.listItem))
+                }
+                ref="listDiv"
             >
-                <List ref='list' className='list'>
+                <List ref='listItem' className='list'>
                     {
-                        topic.map(index => {
+                        state.map(index => {
                             return (
-                                <Link>
+                                <Link key={index.id} to={`/details/${index.id}`} style={{ display: 'block' }}>
                                     <ListItem align='bottom' thumb={index.author.avatar_url} multipleLine>
-                                        {index.title}
+                                        {index.title}  <Brief>{index.reply_count}/{index.visit_count} <span style={{ float: 'right' }}>{index.create_at.substring(0, 10)}</span></Brief>
                                     </ListItem>
                                 </Link>
                             )
                         })
                     }
                 </List>
-
             </div>
         );
     }

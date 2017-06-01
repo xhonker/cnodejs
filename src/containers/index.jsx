@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
+import Main from '../components/TabBar/index';
 
-import { test,SyncAction } from '../actions/index';
-import Home from '../components/Home/index';
-
-const mapStateToPorps = state => {
+const mapStateToPorps = state => {  
     return {
-        hidden: state.main.hidden
+        item: state.main.item
     }
-};
+}; 
 
-const mapDispatchToPorps = dispath => {
-    return {
-        testClick: () => { dispath(SyncAction('good')) }
-    }
-}
-
-const main = connect(mapStateToPorps, mapDispatchToPorps)(Home);
+const main = connect(mapStateToPorps)(Main);
 
 export default main;

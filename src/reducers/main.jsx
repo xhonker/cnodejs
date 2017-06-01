@@ -1,19 +1,19 @@
-let initState = {
-    hidden: false,
-    item: []
+const initState = {
+    isFetching: false,
+    item: [],
 }
-
-const main = (state = initState, action) => {
+const main = (state = initState, action) => { 
     let newState = {};
     switch (action.type) {
         case 'test':
             newState = { hidden: !state.hidden, text: action.text };
             return Object.assign({}, state, newState);
         case 'testSyncAciton':
-            return {
-                ...state,
-                item: action.data
-            }
+            newState = { item: action.data }
+            return Object.assign({}, state, newState)
+        case 'AjaxTopicRequest':
+            newState = { isFetching: true }
+            return Object.assign({}, state, newState)
         default: return state;
     }
 }
