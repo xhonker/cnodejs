@@ -33,26 +33,26 @@ const tabs = [
 
 class Main extends Component {
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(SyncAction('all'))
+        const { dispatch, item } = this.props;
+        dispatch(SyncAction(item.tab))
     }
     onTabClick = (tab) => {
-        const { dispatch } = this.props;
+        const { dispatch, item } = this.props;
         switch (tab) {
             case '1':
-                dispatch(SyncAction('all')) 
+                if (!item.isFetching) dispatch(SyncAction('all'))
                 break;
             case '2':
-                dispatch(SyncAction('good'))
+                if (!item.isFetching) dispatch(SyncAction('good'))
                 break;
             case '3':
-                dispatch(SyncAction('share'))
+                if (!item.isFetching) dispatch(SyncAction('share'))
                 break;
             case '4':
-                dispatch(SyncAction('ask'))
+                if (!item.isFetching) dispatch(SyncAction('ask'))
                 break;
             case '5':
-                dispatch(SyncAction('job'))
+                if (!item.isFetching) dispatch(SyncAction('job'))
                 break;
             default:
                 break;
@@ -60,15 +60,28 @@ class Main extends Component {
     }
     render() {
         const { onScrolls, item } = this.props;
+        let defaultActiveKey;
+        if (item.tab == 'all') {
+            defaultActiveKey = '1';
+        } else if (item.tab == 'good') {
+            defaultActiveKey = '2';
+        } else if (item.tab == 'share') {
+            defaultActiveKey = '3';
+        } else if (item.tab == 'ask') {
+            defaultActiveKey = '4';
+        } else if (item.tab == 'job') {
+            defaultActiveKey = '5';
+        }
+        console.log(defaultActiveKey);
         return (
             <div>
                 <NavBar iconName='ellipsis'>首页</NavBar>
-                <Tabs defaultActiveKey='1' animated={false} onTabClick={this.onTabClick}>
+                <Tabs defaultActiveKey={defaultActiveKey} animated={false} onTabClick={this.onTabClick}>
                     {
                         tabs.map((index) => {
                             return (
                                 <TabPane key={index.key} tab={index.name}>
-                                    {(item.length != 0) ? <TopicList onScroll={onScrolls} state={item} onScrolls={onScrolls} /> : <ActivityIndicator toast text='加载中...' size="large" />}
+                                    {(item.tab == index.tab && item.item.length != 0) ? <TopicList onScroll={onScrolls} state={item.item} onScrolls={onScrolls} /> : <ActivityIndicator toast text='加载中...' size="large" />}
                                 </TabPane>
                             )
                         })
@@ -80,7 +93,9 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-
+    item: PropTypes.object.isRequired,
+    onScrolls: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired
 };
 
 export default Main;

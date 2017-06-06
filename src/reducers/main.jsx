@@ -1,6 +1,7 @@
 const initState = {
     isFetching: false,
     item: [],
+    tab: 'all'
 }
 const main = (state = initState, action) => {
     let newState = {};

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavBar } from 'antd-mobile';
-import cDetails from '../components/Topic/Details/index';
+import Test from '../components/Topic/Details/index';
 import { request_details } from '../actions/index';
 
 class Details extends Component {
@@ -14,19 +14,20 @@ class Details extends Component {
         history.go(-1)
     }
     render() {
-        console.log(this.props.data);
+        const { data } = this.props;
+        // console.log(data);
         return (
             <div>
                 <NavBar onLeftClick={this.onLeftClick}>
                     详情
                 </NavBar>
+                <Test item={data}/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         data: state.details.data
     }

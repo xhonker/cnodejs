@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-class Details extends Component {
-
+import './index.less';
+class Test extends Component {
     render() {
-        const { } = this.props;
+        console.log(this.props);
+        const { item } = this.props;
         return (
             <div>
-
+                <div className='details_body' dangerouslySetInnerHTML={{ __html: item.content }}></div>
             </div>
         );
     }
 }
 
-Details.propTypes = {
+Test.propTypes = {
 
 };
 
-export default Details;
+export default Test;

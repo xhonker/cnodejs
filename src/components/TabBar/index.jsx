@@ -23,10 +23,10 @@ class Menu extends Component {
     }
     switchTab = tab => {
         const { dispatch, item } = this.props;
-        console.log(this.props);
+        // console.log(this.props);
         switch (tab) {
             case 'main':
-                return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item.item} />)
+                return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item} />)
                 break;
             default:
                 break;
