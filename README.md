@@ -1,9 +1,9 @@
 > 版本升级为webpack2.0
+### 预览地址 ：[点击预览](https://xhonker.github.io/cnodejs/dist/index.html)
 ```
 yarn //下载依赖
 yarn dev //开发
 yarn dist //发布
-预览地址 ：[点击预览](https://xhonker.github.io/cnodejs/dist/index.html)
 ```
 > 使用react-router 2.8.1版本
 ### bug
