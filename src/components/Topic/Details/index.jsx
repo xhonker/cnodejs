@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { WhiteSpace, Card } from 'antd-mobile';
+import Comment from './comment/index';
+import Author from './author/index';
 import './index.less';
 class Test extends Component {
     render() {
         const { item } = this.props;
-        console.log(item);
-        console.log(typeof item.replies);
         if (item.reply_count) {
             return (
                 <div style={{ marginTop: '90px' }}>
+                    <Author author={item}/>
                     <div className='details_body' dangerouslySetInnerHTML={{ __html: item.content }}></div>
-                    <div>
-                        <h3>{item.reply_count}条评论</h3>
-                        {item.replies.map((index, key) => {
-                            console.log(index);
-                        })}
-                    </div>
+                    <Comment replies={item} />
                 </div>
             );
-        }else{
+        } else {
             return (
                 <div></div>
             )
@@ -29,7 +25,7 @@ class Test extends Component {
 }
 
 Test.propTypes = {
-
+    item: PropTypes.object.isRequired
 };
 
 export default Test;
