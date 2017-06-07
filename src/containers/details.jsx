@@ -18,10 +18,12 @@ class Details extends Component {
         // console.log(data);
         return (
             <div>
-                <NavBar onLeftClick={this.onLeftClick}>
-                    详情
+                <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 99999 }}>
+                    <NavBar onLeftClick={this.onLeftClick}>
+                        详情
                 </NavBar>
-                <Test item={data}/>
+                </div> 
+                <Test item={data} />
             </div>
         )
     }

@@ -7,8 +7,8 @@ import extractTextWebpackPlugin from 'extract-text-webpack-plugin';
 
 const dir_build = path.resolve(__dirname, 'dist')
 
-const less_build = new extractTextWebpackPlugin('[name]-[hash:8].css');
-const css_build = new extractTextWebpackPlugin('[name]-[hash:8].css')
+const less_build = new extractTextWebpackPlugin('[name]-[hash:8]-less.css');
+const css_build = new extractTextWebpackPlugin('[name]-[hash:8]-css.css')
 
 const config = webpack({
     entry: {
@@ -66,16 +66,13 @@ const config = webpack({
             {
                 test: /\.css$/,
                 exclude: /^node_modules$/,
-                use: [
-                    { loader: 'style-loader' },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: '1'
-                        }
-                    },
-                    { loader: 'postcss-loader' }
-                ]
+                use: css_build.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        'postcss-loader',
+                    ]
+                })
             },
             {
                 test: /\.(svg)$/i,
@@ -132,6 +129,7 @@ const config = webpack({
 
         }),
         new cleanWebpackPlugin(['./dist/*']),
+        css_build,
         less_build,
         new webpack.LoaderOptionsPlugin({
             options: {

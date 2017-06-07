@@ -9,16 +9,15 @@ const Brief = ListItem.Brief;
 import './style/index.less';
 class TopicList extends Component {
     render() {
-        const { onScrolls, state } = this.props;
+        const { onScrolls, state } = this.props; 
         return (
             <div
-                style={{ height: document.documentElement.clientHeight - 276, overflow: 'auto' }}
                 onScroll={
                     () => onScrolls(ReactDOM.findDOMNode(this.refs.listDiv), ReactDOM.findDOMNode(this.refs.listItem))
                 }
                 ref="listDiv"
             >
-                <List ref='listItem' className='list'>
+                <List ref='listItem'>
                     {
                         state.map(index => {
                             return (

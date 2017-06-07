@@ -13,7 +13,7 @@ const testSyncAction = (data, tab, limit) => ({
 const AjaxTopicRequest = ({
     type: 'AjaxTopicRequest'
 })
-const SyncAction = (tab, limit = 10) => {
+const SyncAction = (tab, limit = 50) => {
     return dispath => {
         dispath(AjaxTopicRequest)
         axios.get(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=1&limit=${limit}`)
