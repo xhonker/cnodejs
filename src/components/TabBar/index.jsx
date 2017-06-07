@@ -1,4 +1,4 @@
-import { TabBar } from 'antd-mobile';
+import { TabBar, Icon } from 'antd-mobile';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './style/index';
@@ -49,8 +49,8 @@ class Menu extends Component {
                             }
                         }
                         selected={this.state.selectedTab === 'main'}
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+                        icon={<Icon type={require('../../static/image/index.svg')} />}
+                        selectedIcon={<Icon type={require('../../static/image/index-fill.svg')} />}
                     >
                         {this.switchTab('main')}
                     </TabBarItem>
@@ -65,8 +65,8 @@ class Menu extends Component {
                             }
                         }
                         selected={this.state.selectedTab === 'Release'}
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+                        icon={<Icon type={require('../../static/image/write.svg')} />}
+                        selectedIcon={<Icon type={require('../../static/image/write-fill.svg')} />}
                     >
 
                     </TabBarItem>
@@ -81,10 +81,9 @@ class Menu extends Component {
                             }
                         }
                         selected={this.state.selectedTab === 'message'}
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-                    >
-
+                        icon={<Icon type={require('../../static/image/message.svg')} />}
+                        selectedIcon={<Icon type={require('../../static/image/message-fill.svg')} />}
+                    > 
                     </TabBarItem>
                     <TabBarItem
                         title='我的'
@@ -97,10 +96,9 @@ class Menu extends Component {
                             }
                         }
                         selected={this.state.selectedTab === 'my'}
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-                    >
-
+                        icon={<Icon type={require('../../static/image/user.svg')} />}
+                        selectedIcon={<Icon type={require('../../static/image/user-fill.svg')} />}
+                    > 
                     </TabBarItem>
                 </TabBar>
             </div>

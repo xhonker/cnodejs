@@ -80,7 +80,7 @@ const config = webpack({
                     { loader: 'svg-sprite-loader' },
 
                 ],
-                include: require.resolve('antd-mobile').replace(/warn\.js$/, '')
+                include: [require.resolve('antd-mobile').replace(/warn\.js$/, ''), path.resolve(__dirname, 'src/static/image')]
             }
         ]
     },
@@ -99,7 +99,7 @@ const config = webpack({
         }),
         new htmlWebpackPlugin({
             template: 'index.html',
-            title: 'ReactRouter---TEST',
+            title: 'cnodejs',
             inject: 'body',
             hash: true,
             minify: {

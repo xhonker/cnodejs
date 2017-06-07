@@ -12,6 +12,7 @@ class TopicList extends Component {
         const { onScrolls, state } = this.props; 
         return (
             <div
+                style={{ height: document.documentElement.clientHeight - 276, overflow: 'auto' }}
                 onScroll={
                     () => onScrolls(ReactDOM.findDOMNode(this.refs.listDiv), ReactDOM.findDOMNode(this.refs.listItem))
                 }

@@ -66,7 +66,7 @@ const config = webpack({
             },
             {
                 test: /\.(svg)$/i,
-                include: [require.resolve('antd-mobile').replace(/warn\.js$/, '')],
+                include: [require.resolve('antd-mobile').replace(/warn\.js$/, ''),path.resolve(__dirname,'src/static/image')],
                 use: [
                     { loader: 'svg-sprite-loader' }
                 ]
