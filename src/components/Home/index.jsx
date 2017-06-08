@@ -71,8 +71,7 @@ class Main extends Component {
             defaultActiveKey = '4';
         } else if (item.tab == 'job') {
             defaultActiveKey = '5';
-        }
-        console.log(defaultActiveKey);
+        } 
         return (
             <div>
                 <NavBar iconName='ellipsis'>首页</NavBar>

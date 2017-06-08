@@ -1,8 +1,51 @@
 @import '../../../../style/index.less';
 :global{
-    .am-list-thumb {
+    .am-list-body {
         img{
             .imgsize;
         } 
     } 
+}
+.list{ 
+    height: 210px;
+}
+.am-card-header-content{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap; 
+    span{
+        display: block;
+        margin-top: 10px;
+        font-size: 24px;
+    }
+}
+.listItem-body{ 
+    text-align: center;
+    margin: auto;
+    padding: 0 10px;
+    flex-grow:1;
+    span{
+        margin-left: 5px;
+    }
+}
+.am-card-body{
+    border: none;
+    padding: 0 20px;
+    span{
+        line-height: 40px;
+        display: block;
+        margin-bottom: 26px;
+    }
+}
+.listItem-Base{
+    border-top: 1px solid #ddd;
+    width: 100%;
+    padding: 10px 0 ;
+    display: flex;
+    .listItem_borderRight{
+        border-right: 1px solid #ccc;
+    }
+}
+.icon-comment::before{
+    content: "\E613";
 }

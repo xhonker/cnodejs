@@ -4,13 +4,13 @@ import { WhiteSpace, Card } from 'antd-mobile';
 import Comment from './comment/index';
 import Author from './author/index';
 import './index.less';
-class Test extends Component {
+class Details extends Component {
     render() {
         const { item } = this.props;
-        if (item.reply_count) {
+        if (item.reply_count >= 0) {
             return (
                 <div style={{ marginTop: '90px' }}>
-                    <Author author={item}/>
+                    <Author author={item} />
                     <div className='details_body' dangerouslySetInnerHTML={{ __html: item.content }}></div>
                     <Comment replies={item} />
                 </div>
@@ -24,8 +24,8 @@ class Test extends Component {
     }
 }
 
-Test.propTypes = {
+Details.propTypes = {
     item: PropTypes.object.isRequired
 };
 
-export default Test;
+export default Details;
