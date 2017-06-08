@@ -27,40 +27,44 @@ class TopicList extends Component {
                                     <WingBlank size='md'>
                                         <WhiteSpace size='md' />
                                         <Link key={index.id} to={`/details/${index.id}`} style={{ display: 'block' }}>
-                                            <Card full>
-                                                <Card.Header thumb={index.author.avatar_url} title={
-                                                    <div>
-                                                        <div>
-                                                            {index.author.loginname}
-                                                        </div>
-                                                        <span
-                                                            style={{ marginTop: '10px' }}
-                                                        >
-                                                            {tool.getTime(new Date(), index.create_at)}
-                                                            {
-                                                                `发布至 ${tool.getTab(index.tab)}`
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                } />
-                                                <Card.Body>
-                                                    <span>{index.title}</span>
-                                                </Card.Body>
-                                                <Card.Footer content={
-                                                    <div className='listItem-Base'>
-                                                        <div className='listItem-body listItem_borderRight' >
-                                                            <Icon type={require('../../../static/image/attention.svg')} size='xxs' />
-                                                            <span>{index.visit_count}</span>
-                                                        </div>
-                                                        <div className='listItem-body listItem_borderRight'>
-                                                            <Icon type={require('../../../static/image/comment.svg')} size='xxs' />
-                                                            <span>{index.reply_count}</span>
-                                                        </div>
-                                                        <div className='listItem-body'>{tool.getTime(new Date(), index.last_reply_at)}</div>
-                                                    </div>
-                                                } />
+                                            <div style={{ overflow: 'hidden' }}>
+                                                <Card full>
 
-                                            </Card>
+                                                    {index.good ? <div className='good'></div> : <div></div>}
+                                                    {index.top ? <div className='top'></div> : <div></div>}
+                                                    <Card.Header thumb={index.author.avatar_url} title={
+                                                        <div>
+                                                            <div>
+                                                                {index.author.loginname}
+                                                            </div>
+                                                            <span
+                                                                style={{ marginTop: '10px' }}
+                                                            >
+                                                                {tool.getTime(new Date(), index.create_at)}
+                                                                {
+                                                                    `发布至 ${tool.getTab(index.tab)}`
+                                                                }
+                                                            </span>
+                                                        </div>
+                                                    } />
+                                                    <Card.Body>
+                                                        <span>{index.title}</span>
+                                                    </Card.Body>
+                                                    <Card.Footer content={
+                                                        <div className='listItem-Base'>
+                                                            <div className='listItem-body listItem_borderRight' >
+                                                                <Icon type={require('../../../static/image/attention.svg')} size='xxs' />
+                                                                <span>{index.visit_count}</span>
+                                                            </div>
+                                                            <div className='listItem-body listItem_borderRight'>
+                                                                <Icon type={require('../../../static/image/comment.svg')} size='xxs' />
+                                                                <span>{index.reply_count}</span>
+                                                            </div>
+                                                            <div className='listItem-body'>{tool.getTime(new Date(), index.last_reply_at)}</div>
+                                                        </div>
+                                                    } /> 
+                                                </Card>
+                                            </div>
                                         </Link>
                                     </WingBlank>
                                 </div>

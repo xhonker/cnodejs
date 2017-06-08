@@ -46,6 +46,36 @@
         border-right: 1px solid #ccc;
     }
 }
-.icon-comment::before{
-    content: "\E613";
-}
+.good{
+        position: absolute;
+        top: 0;
+        right: -101px;
+        transform: rotate(45deg);
+        width: 436px;
+        background-color: green;
+
+        &::before{
+            content: '精华';
+            height: 40px;
+            width: 573px;
+            color: white; 
+            text-align: center;
+            display: block;
+        }
+} 
+.top{
+    position: absolute;
+    top: 0;
+    right: -79px;
+    transform: rotate(45deg);
+    width: 250px;
+    background-color: red;
+    &::before{
+        content: '置顶'; 
+        height: 40px;
+        width: 280px;
+        color: white; 
+        text-align: center;
+        display: block;
+    }
+} 
