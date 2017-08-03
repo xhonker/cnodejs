@@ -15,7 +15,6 @@ class Details extends Component {
     }
     render() {
         const { data } = this.props;
-        // console.log(data);
         return (
             <div>
                 <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 99999 }}>

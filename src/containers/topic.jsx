@@ -9,13 +9,8 @@ const mapStateToPorps = state => {
     return {
         item: state.main
     }
-};
-const mapDispatchToPorps = dispath => {
-    return {
-        dispath: e => { dispath(e) }
-    }
-}
+}; 
 
-const main = connect(mapStateToPorps, mapDispatchToPorps)(Home);
+const main = connect(mapStateToPorps)(Home);
 
 export default main;

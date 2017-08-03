@@ -11,9 +11,8 @@ class Menu extends Component {
     state = {
         selectedTab: 'main'
     }
-    onScrolls = (div, list) => {
-        // console.log(`${div.scrollTop}----${div.offsetHeight}----${list.offsetHeight}`);
-        const { dispatch, item } = this.props;
+    onScrolls = (div, list) => { 
+        const { dispatch, item } = this.props; 
         if (div.scrollTop + div.offsetHeight > list.offsetHeight) {
             if (!item.item.isFetching) {
                 let num = item.limit + 10;
@@ -22,8 +21,7 @@ class Menu extends Component {
         }
     }
     switchTab = tab => {
-        const { dispatch, item } = this.props;
-        // console.log(this.props);
+        const { dispatch, item } = this.props; 
         switch (tab) {
             case 'main':
                 return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item} />)
