@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavBar } from 'antd-mobile';
-import Test from '../components/Topic/Details/index';
+import DetailsContent from '../components/Topic/Details/index';
 import { request_details } from '../actions/index';
 
 class Details extends Component {
@@ -14,7 +14,7 @@ class Details extends Component {
         history.go(-1)
     }
     render() {
-        const { data } = this.props;
+        const { data } = this.props; 
         return (
             <div>
                 <div style={{ position: 'fixed', top: 0, width: '100%', zIndex: 99999 }}>
@@ -22,15 +22,16 @@ class Details extends Component {
                         详情
                 </NavBar>
                 </div> 
-                <Test item={data} />
+                <DetailsContent item={data} />
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
+    console.log(state);
     return {
-        data: state.details.data
+        data: state.get('details').get('data')
     }
 }
 export default connect(mapStateToProps)(Details);

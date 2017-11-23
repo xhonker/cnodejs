@@ -38,26 +38,27 @@ const tabs = [
 class Main extends Component {
   componentDidMount() {
     const { dispatch, item } = this.props;
-    dispatch(SyncAction(item.tab));
-  }
-
+    dispatch(SyncAction(item.get('tab')));
+    // this.props.actions.SyncAction(itm.get('tab'));
+    // console.log(this.props.actions); 
+  } 
   onTabClick = tab => {
     const { dispatch, item } = this.props;
     switch (tab) {
       case "1":
-        if (!item.isFetching) dispatch(SyncAction("all"));
+        if (!item.get('isFetching')) dispatch(SyncAction("all"));
         break;
       case "2":
-        if (!item.isFetching) dispatch(SyncAction("good"));
+        if (!item.get('isFetching')) dispatch(SyncAction("good"));
         break;
       case "3":
-        if (!item.isFetching) dispatch(SyncAction("share"));
+        if (!item.get('isFetching')) dispatch(SyncAction("share"));
         break;
       case "4":
-        if (!item.isFetching) dispatch(SyncAction("ask"));
+        if (!item.get('isFetching')) dispatch(SyncAction("ask"));
         break;
       case "5":
-        if (!item.isFetching) dispatch(SyncAction("job"));
+        if (!item.get('isFetching')) dispatch(SyncAction("job"));
         break;
       default:
         break;
@@ -65,16 +66,16 @@ class Main extends Component {
   };
   render() {
     const { onScrolls, item, dispatch } = this.props;
-    let defaultActiveKey;
-    if (item.tab == "all") {
+    let defaultActiveKey = '1';
+    if (item.get('tab') == "all") {
       defaultActiveKey = "1";
-    } else if (item.tab == "good") {
+    } else if (item.get('tab') == "good") {
       defaultActiveKey = "2";
-    } else if (item.tab == "share") {
+    } else if (item.get('tab') == "share") {
       defaultActiveKey = "3";
-    } else if (item.tab == "ask") {
+    } else if (item.get('tab') == "ask") {
       defaultActiveKey = "4";
-    } else if (item.tab == "job") {
+    } else if (item.get('tab') == "job") {
       defaultActiveKey = "5";
     }
     return (
@@ -88,15 +89,17 @@ class Main extends Component {
           {tabs.map(index => {
             return (
               <TabPane key={index.key} tab={index.name}>
-                {item.tab == index.tab && item.item.length != 0
-                  ? <TopicList
+                {
+                  item.get('tab') == index.tab && item.get('item').length > 1
+                    ? <TopicList
                       dispatch={dispatch}
                       onScroll={onScrolls}
-                      state={item.item}
+                      state={item.get('item')}
                       onScrolls={onScrolls}
                       data={this.props}
                     />
-                  : <ActivityIndicator toast text="加载中..." size="large" />}
+                    : <ActivityIndicator toast text="加载中..." size="large" />
+                }
               </TabPane>
             );
           })}

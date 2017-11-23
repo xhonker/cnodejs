@@ -6,22 +6,45 @@ const TabBarItem = TabBar.Item;
 import Main from '../Home/index';
 import { SyncAction } from '../../actions/index';
 
+const bottomMenu = [
+    {
+        title: '首页',
+        selectedTab: 'main',
+        icon: 'index.svg',
+        selectedIcon: 'index-fill.svg',
+    }, {
+        title: '发布',
+        selectedTab: 'createTopic',
+        icon: 'write.svg',
+        selectedIcon: 'write-fill.svg',
+    }, {
+        title: '消息',
+        selectedTab: 'message',
+        icon: 'message.svg',
+        selectedIcon: 'message-fill.svg',
+    }, {
+        title: '我的',
+        selectedTab: 'my',
+        icon: 'user.svg',
+        selectedIcon: 'user-fill.svg',
+    }
+];
 
 class Menu extends Component {
     state = {
-        selectedTab: 'main'
+        selectedTab: 'main',
     }
-    onScrolls = (div, list) => { 
+    onScrolls = (div, list) => {
         const { dispatch, item } = this.props; 
         if (div.scrollTop + div.offsetHeight > list.offsetHeight) {
-            if (!item.item.isFetching) {
-                let num = item.limit + 10;
-                dispatch(SyncAction(item.tab, num))
+            if (!item.get('isFetching')) {
+                let num = item.get('limit') + 10;
+                dispatch(SyncAction(item.get('tab'), num))
             }
         }
     }
     switchTab = tab => {
-        const { dispatch, item } = this.props; 
+        const { dispatch, item } = this.props;
         switch (tab) {
             case 'main':
                 return (<Main onScrolls={this.onScrolls} dispatch={dispatch} item={item} />)
@@ -30,74 +53,29 @@ class Menu extends Component {
                 break;
         }
     }
-    render() {
+    render() {  
         return (
             <div>
                 <TabBar
                     barTintColor='white'
                 >
-                    <TabBarItem
-                        title='首页'
-                        key='首页'
-                        onPress={
-                            () => {
-                                this.setState({
-                                    selectedTab: 'main'
-                                });
-                            }
-                        }
-                        selected={this.state.selectedTab === 'main'}
-                        icon={<Icon type={require('../../static/image/index.svg')} />}
-                        selectedIcon={<Icon type={require('../../static/image/index-fill.svg')} />}
-                    >
-                        {this.switchTab('main')}
-                    </TabBarItem>
-                    <TabBarItem
-                        title='发布'
-                        key='发布'
-                        onPress={
-                            () => {
-                                this.setState({
-                                    selectedTab: 'Release'
-                                });
-                            }
-                        }
-                        selected={this.state.selectedTab === 'Release'}
-                        icon={<Icon type={require('../../static/image/write.svg')} />}
-                        selectedIcon={<Icon type={require('../../static/image/write-fill.svg')} />}
-                    >
+                    {bottomMenu.map(data => {
+                        const { icon, selectedIcon } = data;
+                        return (
+                            <TabBarItem
+                                title={data.title}
+                                key={data.title}
+                                onPress={() => { this.setState({ selectedTab: data.selectedTab }) }}
+                                selected={this.state.selectedTab === data.selectedTab}
+                                icon={<Icon type={require(`../../static/image/${icon}`)} />}
+                                selectedIcon={<Icon type={require(`../../static/image/${selectedIcon}`)} />}
+                            >
+                                {this.switchTab(data.selectedTab)}
+                            </TabBarItem>
 
-                    </TabBarItem>
-                    <TabBarItem
-                        title='消息'
-                        key='消息'
-                        onPress={
-                            () => {
-                                this.setState({
-                                    selectedTab: 'message'
-                                });
-                            }
-                        }
-                        selected={this.state.selectedTab === 'message'}
-                        icon={<Icon type={require('../../static/image/message.svg')} />}
-                        selectedIcon={<Icon type={require('../../static/image/message-fill.svg')} />}
-                    > 
-                    </TabBarItem>
-                    <TabBarItem
-                        title='我的'
-                        key='我的'
-                        onPress={
-                            () => {
-                                this.setState({
-                                    selectedTab: 'my'
-                                });
-                            }
-                        }
-                        selected={this.state.selectedTab === 'my'}
-                        icon={<Icon type={require('../../static/image/user.svg')} />}
-                        selectedIcon={<Icon type={require('../../static/image/user-fill.svg')} />}
-                    > 
-                    </TabBarItem>
+                        )
+                    })}
+
                 </TabBar>
             </div>
         );

@@ -5,7 +5,7 @@ import getTime from '../../../../utils/GetTime';
 import './index.less';
 class Author extends Component {
     render() {
-        const { author } = this.props;
+        const { author } = this.props; 
         return (
             <div className='author-info'>
                 <Card full>

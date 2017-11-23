@@ -1,33 +1,38 @@
-const initState = {
+/*
+ * @Author: Quicker 
+ * @Date: 2017-11-22 14:21:41 
+ * @Last Modified by: Quicker
+ * @Last Modified time: 2017-11-22 14:57:37
+ */
+
+import { Map, List } from "immutable";
+import createReducer from "../utils/createReducer";
+import {
+  MAIN_DATA,
+  REQUEST_STATE,
+  SET_SCROLL
+} from "../constActionTypes/mainActionTypes";
+const initState = Map({
   isFetching: false,
-  item: [],
-  tab: "all",
+  item: List,
+  tab: 'all',
   scroll: 0
-};
-const main = (state = initState, action) => {
-  let newState = {};
-  switch (action.type) {
-    case "test":
-      newState = { hidden: !state.hidden, text: action.text };
-      return Object.assign({}, state, newState);
-    case "testSyncAciton":
-      newState = {
-        item: action.data,
-        isFetching: false,
-        tab: action.tab,
-        limit: action.limit,
-        scroll:0,
-      };
-      return Object.assign({}, state, newState);
-    case "AjaxTopicRequest":
-      newState = { isFetching: true };
-      return Object.assign({}, state, newState);
-    case "SET_SCROLL":
-      newState = { scroll: action.scrollTop };
-      return Object.assign({}, state, newState);
-    default:
-      return state;
+});
+const main = createReducer(initState, {
+  [MAIN_DATA](state, action) {
+    return state.set('item', action.data)
+      .set('isFetching', false)
+      .set('tab', action.tab)
+      .set('limit', action.limit)
+      // .set('scroll', 0);
+  },
+  [REQUEST_STATE](state, action) {
+    return state.set('isFetching', true);
+  },
+  [SET_SCROLL](state, action) {
+    return state.set('scroll', action.scrollTop);
   }
-};
+
+});
 
 export default main;

@@ -6,7 +6,7 @@ import Author from './author/index';
 import './index.less';
 class Details extends Component {
     render() {
-        const { item } = this.props;
+        const { item } = this.props; 
         if (item.reply_count >= 0) {
             return (
                 <div style={{ marginTop: '90px' }}>

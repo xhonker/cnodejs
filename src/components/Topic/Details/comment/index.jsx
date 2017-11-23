@@ -5,8 +5,7 @@ import './index.less';
 import getTime from '../../../../utils/GetTime';
 class Comment extends Component {
     render() {
-        const { replies } = this.props;
-        console.log(replies);
+        const { replies } = this.props;  
         return (
             <div className='comment'>
                 <h3>共{replies.reply_count}条评论</h3>
